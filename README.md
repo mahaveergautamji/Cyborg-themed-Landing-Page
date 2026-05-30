@@ -41,7 +41,7 @@ Open index.html in your browser.
 
 Demo Video
 
-Google Drive Link: 
+Google Drive Link: https://drive.google.com/file/d/1lXr_XoXpYqraXWa3RYvKnLLBm4kBN_BX/view?usp=sharing
 
 Repository
 
@@ -52,9 +52,7 @@ https://github.com/mahaveergautamji/Cyborg-themed-Landing-Page
 Author
 
 Mahaveer Gautam
-
-B.Tech Computer Science and Engineering
-Chhatrapati Shahu Ji Maharaj University (CSJMU), Kanpur, Uttar Pradesh
+Linkedin - https://www.linkedin.com/in/mahaveergautam/
 
 License
 
