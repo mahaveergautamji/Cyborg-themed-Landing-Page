@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEURAL-X // The Future is Cyborg</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Orbitron & Rajdhani -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            bg: '#030712',
+                            darker: '#01030a',
+                            cyan: '#22d3ee',
+                            purple: '#a855f7',
+                            magenta: '#ec4899',
+                            slate: '#0f172a',
+                        }
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        rajdhani: ['Rajdhani', 'sans-serif'],
+                        space: ['Space Grotesk', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neon-cyan': '0 0 15px rgba(34, 211, 238, 0.4), 0 0 30px rgba(34, 211, 238, 0.2)',
+                        'neon-purple': '0 0 15px rgba(168, 85, 247, 0.4), 0 0 30px rgba(168, 85, 247, 0.2)',
+                        'neon-magenta': '0 0 15px rgba(236, 72, 153, 0.4), 0 0 30px rgba(236, 72, 153, 0.2)',
+                        'cyber-glass': 'inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 10px 30px rgba(0, 0, 0, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030712;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+            border: 2px solid #030712;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #22d3ee;
+        }
+
+        /* Cyberpunk Glitch & Glow Animations */
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        @keyframes pulse-fast {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.8; }
+        }
+        @keyframes neon-pulse {
+            0%, 100% { border-color: rgba(34, 211, 238, 0.3); box-shadow: 0 0 15px rgba(34, 211, 238, 0.1); }
+            50% { border-color: rgba(34, 211, 238, 0.8); box-shadow: 0 0 25px rgba(34, 211, 238, 0.4); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+        }
+        @keyframes grid-move {
+            0% { background-position: 0 0; }
+            100% { background-position: 40px 40px; }
+        }
+
+        .cyber-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            animation: grid-move 20s linear infinite;
+        }
+
+        .neon-border-cyan {
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            transition: all 0.3s ease;
+        }
+        .neon-border-cyan:hover {
+            border-color: #22d3ee;
+            box-shadow: 0 0 15px rgba(34, 211, 238, 0.3);
+        }
+
+        .neon-border-purple {
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            transition: all 0.3s ease;
+        }
+        .neon-border-purple:hover {
+            border-color: #a855f7;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+        }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Scanline Overlay effect */
+        .scanlines::after {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 99999;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Typewriter text cursor */
+        .cursor-blink::after {
+            content: '|';
+            animation: pulse-fast 1s infinite;
+        }
+
+        /* Utility classes for reveal effect */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-cyber-bg text-slate-100 font-space overflow-x-hidden scanlines selection:bg-cyber-cyan selection:text-black">
+
+    <!-- LOADING SCREEN -->
+    <div id="loader" class="fixed inset-0 bg-cyber-darker z-[9999] flex flex-col justify-center items-center font-orbitron p-4 transition-all duration-1000">
+        <div class="relative w-72 h-72 md:w-96 md:h-96 flex justify-center items-center mb-8">
+            <!-- Animated spinning circular HUD -->
+            <div class="absolute inset-0 rounded-full border-4 border-dashed border-cyber-cyan/30 animate-[spin_20s_linear_infinite]"></div>
+            <div class="absolute inset-4 rounded-full border-2 border-double border-cyber-purple/40 animate-[spin_10s_linear_infinite_reverse]"></div>
+            <div class="absolute inset-8 rounded-full border border-cyber-magenta/20 animate-pulse"></div>
+            <!-- Central icon -->
+            <div class="text-cyber-cyan text-4xl md:text-5xl animate-bounce">
+                <i class="fa-solid fa-microchip"></i>
+            </div>
+        </div>
+        <div class="w-64 md:w-80 bg-slate-900 border border-slate-700 h-2 rounded-full overflow-hidden mb-4">
+            <div id="loader-bar" class="bg-gradient-to-r from-cyber-cyan via-cyber-purple to-cyber-magenta h-full w-0 transition-all duration-300"></div>
+        </div>
+        <div class="text-xs uppercase tracking-[0.3em] text-cyber-cyan font-semibold mb-2" id="loader-status">Initializing Core Systems...</div>
+        <div class="text-[10px] text-slate-500 font-mono" id="loader-log">Neural_Core_v2.5.8... OK</div>
+    </div>
+
+    <!-- BACKGROUND EFFECTS -->
+    <div class="fixed inset-0 z-0 pointer-events-none">
+        <div class="absolute inset-0 cyber-grid opacity-30"></div>
+        <!-- Cyber gradient spotlights -->
+        <div class="absolute top-1/4 left-1/4 w-[30vw] h-[30vw] rounded-full bg-cyber-purple/10 blur-[120px] animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-[35vw] h-[35vw] rounded-full bg-cyber-cyan/10 blur-[150px] animate-pulse" style="animation-delay: 2s;"></div>
+    </div>
+
+    <!-- MAIN APP WRAPPER -->
+    <div class="relative z-10 flex flex-col min-h-screen">
+
+        <!-- HEADER / NAVIGATION -->
+        <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b border-transparent">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="relative w-10 h-10 flex items-center justify-center bg-slate-900 rounded border border-cyber-cyan group-hover:shadow-neon-cyan transition-all duration-300">
+                        <i class="fa-solid fa-brain text-cyber-cyan text-lg group-hover:scale-110 transition-all"></i>
+                        <span class="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-cyber-magenta rounded-full"></span>
+                    </div>
+                    <span class="font-orbitron font-extrabold text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan to-white">
+                        NEURAL<span class="text-cyber-magenta">-X</span>
+                    </span>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center gap-8 font-rajdhani text-lg font-semibold tracking-wider">
+                    <a href="#hero" class="text-cyber-cyan hover:text-white transition duration-300">CORE</a>
+                    <a href="#features" class="text-slate-400 hover:text-cyber-cyan transition duration-300">AUGMENTS</a>
+                    <a href="#dashboard" class="text-slate-400 hover:text-cyber-cyan transition duration-300">INTERFACE</a>
+                    <a href="#about" class="text-slate-400 hover:text-cyber-cyan transition duration-300">CHASSIS</a>
+                    <a href="#technology" class="text-slate-400 hover:text-cyber-cyan transition duration-300">SPECS</a>
+                    <a href="#contact" class="text-slate-400 hover:text-cyber-cyan transition duration-300">CONTACT</a>
+                </nav>
+
+                <!-- Action Button -->
+                <div class="hidden md:flex items-center gap-4">
+                    <button onclick="toggleSystemAlert()" class="relative px-5 py-2 font-orbitron text-xs tracking-widest text-cyber-cyan border border-cyber-cyan/50 hover:border-cyber-cyan hover:shadow-neon-cyan transition-all duration-300 rounded overflow-hidden group">
+                        <span class="absolute inset-0 bg-cyber-cyan/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
+                        SYSTEM STATUS: ACTIVE
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden flex flex-col justify-between w-6 h-4 text-slate-100 focus:outline-none">
+                    <span class="w-full h-0.5 bg-slate-100 transition-all duration-300 rounded" id="bar1"></span>
+                    <span class="w-full h-0.5 bg-slate-100 transition-all duration-300 rounded" id="bar2"></span>
+                    <span class="w-full h-0.5 bg-slate-100 transition-all duration-300 rounded" id="bar3"></span>
+                </button>
+            </div>
+
+            <!-- Mobile Dropdown Nav -->
+            <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 w-full bg-cyber-darker/95 backdrop-blur-lg border-b border-slate-800 py-6 px-4 flex flex-col gap-4 font-rajdhani text-xl tracking-wider text-center">
+                <a href="#hero" class="py-2 text-cyber-cyan border-b border-slate-800/50" onclick="toggleMobileMenu()">CORE</a>
+                <a href="#features" class="py-2 text-slate-400 hover:text-cyber-cyan border-b border-slate-800/50" onclick="toggleMobileMenu()">AUGMENTS</a>
+                <a href="#dashboard" class="py-2 text-slate-400 hover:text-cyber-cyan border-b border-slate-800/50" onclick="toggleMobileMenu()">INTERFACE</a>
+                <a href="#about" class="py-2 text-slate-400 hover:text-cyber-cyan border-b border-slate-800/50" onclick="toggleMobileMenu()">CHASSIS</a>
+                <a href="#technology" class="py-2 text-slate-400 hover:text-cyber-cyan border-b border-slate-800/50" onclick="toggleMobileMenu()">SPECS</a>
+                <a href="#contact" class="py-2 text-slate-400 hover:text-cyber-cyan" onclick="toggleMobileMenu()">CONTACT</a>
+                <button onclick="toggleSystemAlert(); toggleMobileMenu();" class="mt-4 px-5 py-2.5 font-orbitron text-xs tracking-widest text-cyber-cyan border border-cyber-cyan/50 hover:border-cyber-cyan rounded">
+                    SYSTEM STATUS: ACTIVE
+                </button>
+            </div>
+        </header>
+
+        <!-- HERO SECTION -->
+        <section id="hero" class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-20">
+                
+                <!-- Hero Left: Text & Actions -->
+                <div class="lg:col-span-7 flex flex-col justify-center text-center lg:text-left space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-cyber-cyan/10 border border-cyber-cyan/30 rounded-full text-cyber-cyan font-mono text-xs tracking-widest self-center lg:self-start">
+                        <span class="w-2 h-2 rounded-full bg-cyber-cyan animate-ping"></span>
+                        MODEL N-X9 SYSTEM READY
+                    </div>
+                    
+                    <h1 class="font-orbitron font-black text-4xl sm:text-6xl xl:text-7xl tracking-wide leading-none text-white">
+                        THE FUTURE <br class="hidden sm:inline">
+                        IS <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan via-cyber-purple to-cyber-magenta">CYBORG</span>
+                    </h1>
+
+                    <p class="text-slate-400 text-base sm:text-xl font-light max-w-xl mx-auto lg:mx-0 leading-relaxed font-space">
+                        Upgrade your biological shell. Integrate state-of-the-art neural interfaces, cybernetic chassis enhancements, and cloud-synced AI consciousness to exceed standard human boundaries.
+                    </p>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4 font-rajdhani text-lg font-bold tracking-wider">
+                        <a href="#dashboard" class="relative px-8 py-3.5 bg-cyber-cyan text-slate-950 rounded font-bold overflow-hidden shadow-neon-cyan group text-center">
+                            <span class="absolute inset-0 bg-white/20 translate-x-full group-hover:translate-x-0 transition-transform duration-300"></span>
+                            <i class="fa-solid fa-bolt mr-2"></i> INITIALIZE INTERFACE
+                        </a>
+                        <a href="#features" class="relative px-8 py-3.5 border border-slate-700 text-white rounded overflow-hidden group text-center hover:border-cyber-magenta hover:shadow-neon-magenta transition-all duration-300">
+                            <span class="absolute inset-0 bg-cyber-magenta/10 -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></span>
+                            EXPLORE AUGMENTS <i class="fa-solid fa-angles-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+
+                    <!-- Cyber Indicators -->
+                    <div class="grid grid-cols-3 gap-6 pt-8 border-t border-slate-800 max-w-md mx-auto lg:mx-0">
+                        <div>
+                            <div class="font-orbitron text-2xl font-bold text-cyber-cyan">99.9%</div>
+                            <div class="text-xs text-slate-500 uppercase tracking-widest font-rajdhani">Neural Sync Rate</div>
+                        </div>
+                        <div>
+                            <div class="font-orbitron text-2xl font-bold text-cyber-purple">&lt;1.2ms</div>
+                            <div class="text-xs text-slate-500 uppercase tracking-widest font-rajdhani">Quantum Latency</div>
+                        </div>
+                        <div>
+                            <div class="font-orbitron text-2xl font-bold text-cyber-magenta">4.0 PFLOPS</div>
+                            <div class="text-xs text-slate-500 uppercase tracking-widest font-rajdhani">Compute Core</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Right: Holographic Particle Canvas -->
+                <div class="lg:col-span-5 flex justify-center items-center relative min-h-[350px] sm:min-h-[450px]">
+                    <!-- Hologram stand visual -->
+                    <div class="absolute bottom-4 w-72 h-4 bg-gradient-to-r from-transparent via-cyber-cyan/20 to-transparent rounded-full filter blur-md"></div>
+                    <!-- Outer ring indicators -->
+                    <div class="absolute w-80 h-80 border border-cyber-cyan/20 rounded-full animate-[spin_40s_linear_infinite]"></div>
+                    <div class="absolute w-64 h-64 border-2 border-dashed border-cyber-purple/15 rounded-full animate-[spin_20s_linear_infinite_reverse]"></div>
+                    
+                    <!-- Dynamic WebGL-like Canvas Grid System -->
+                    <canvas id="hologramCanvas" class="w-full max-w-[420px] aspect-square relative z-10 animate-float cursor-grab active:cursor-grabbing"></canvas>
+                    
+                    <!-- Floating overlay diagnostic labels -->
+                    <div class="absolute top-4 left-4 bg-slate-900/80 backdrop-blur border border-cyber-cyan/30 text-[10px] text-cyber-cyan font-mono px-2.5 py-1 rounded tracking-wider">
+                        LNK_STBL_98.4%
+                    </div>
+                    <div class="absolute bottom-8 right-4 bg-slate-900/80 backdrop-blur border border-cyber-magenta/30 text-[10px] text-cyber-magenta font-mono px-2.5 py-1 rounded tracking-wider">
+                        CHASSIS_SYS: ACTIVE
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SYSTEM DASHBOARD PREVIEW (Bonus Feature) -->
+        <section id="dashboard" class="py-24 bg-cyber-darker relative border-t border-b border-slate-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                    <h2 class="font-orbitron text-base text-cyber-cyan font-bold tracking-[0.2em] uppercase mb-3">Diagnostic HUD</h2>
+                    <p class="font-orbitron text-3xl sm:text-4xl font-extrabold text-white">INTERACTIVE SYSTEM CONSOLE</p>
+                    <div class="w-16 h-1 bg-cyber-cyan mx-auto mt-4 rounded"></div>
+                    <p class="text-slate-400 mt-6 font-space">Monitor synthetic heart rates, CPU thermal spikes, and direct visual telemetry feed. Use toggles to tune up augment bandwidth.</p>
+                </div>
+
+                <!-- Dashboard Panel -->
+                <div class="glass-panel rounded-xl border border-slate-800 overflow-hidden shadow-cyber-glass reveal">
+                    <!-- Dashboard Header -->
+                    <div class="bg-slate-900/90 border-b border-slate-800 p-4 flex flex-wrap items-center justify-between gap-4 font-orbitron">
+                        <div class="flex items-center gap-3">
+                            <span class="w-3 h-3 bg-red-500 rounded-full animate-ping"></span>
+                            <span class="text-sm tracking-wider font-semibold text-slate-300">LIVE FEED // HOST: STABLE</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="changeDashboardPreset('neuro')" id="db-tab-neuro" class="px-3 py-1.5 text-xs font-semibold bg-cyber-cyan text-slate-950 rounded transition-all">NEURAL LINK</button>
+                            <button onclick="changeDashboardPreset('combat')" id="db-tab-combat" class="px-3 py-1.5 text-xs font-semibold text-slate-400 bg-slate-800 rounded hover:text-white transition-all">CHASSIS POWER</button>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Body -->
+                    <div class="p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        <!-- Left Stats & Gauges (lg:col-span-4) -->
+                        <div class="lg:col-span-4 space-y-6 flex flex-col justify-between">
+                            <div class="space-y-4">
+                                <h3 class="font-orbitron text-xs text-slate-500 uppercase tracking-widest">Core Status Matrix</h3>
+                                
+                                <div class="p-4 bg-slate-900/50 border border-slate-800/80 rounded-lg">
+                                    <div class="flex justify-between text-xs font-mono mb-2">
+                                        <span class="text-slate-400">SYNAPSE BANDWIDTH</span>
+                                        <span class="text-cyber-cyan font-bold" id="gauge-synapse-text">88 GB/s</span>
+                                    </div>
+                                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                                        <div id="gauge-synapse-bar" class="bg-cyber-cyan h-full w-[88%] transition-all duration-500 shadow-neon-cyan"></div>
+                                    </div>
+                                </div>
+
+                                <div class="p-4 bg-slate-900/50 border border-slate-800/80 rounded-lg">
+                                    <div class="flex justify-between text-xs font-mono mb-2">
+                                        <span class="text-slate-400">NANOBOT REPLICATION</span>
+                                        <span class="text-cyber-purple font-bold" id="gauge-nano-text">56%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                                        <div id="gauge-nano-bar" class="bg-cyber-purple h-full w-[56%] transition-all duration-500 shadow-neon-purple"></div>
+                                    </div>
+                                </div>
+
+                                <div class="p-4 bg-slate-900/50 border border-slate-800/80 rounded-lg">
+                                    <div class="flex justify-between text-xs font-mono mb-2">
+                                        <span class="text-slate-400">BIO-THERMAL RATIO</span>
+                                        <span class="text-cyber-magenta font-bold" id="gauge-temp-text">38.4°C</span>
+                                    </div>
+                                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                                        <div id="gauge-temp-bar" class="bg-cyber-magenta h-full w-[38%] transition-all duration-500 shadow-neon-magenta"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-4 border border-dashed border-slate-800 rounded-lg flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-cyber-cyan/10 border border-cyber-cyan/40 flex items-center justify-center text-cyber-cyan text-lg animate-pulse">
+                                    <i class="fa-solid fa-wave-square"></i>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] text-slate-500 uppercase tracking-widest font-mono">Telemetry Status</div>
+                                    <div class="text-sm font-semibold font-orbitron text-white">AUTONOMOUS MODE ACTIVE</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Center Tech Diagnostic visual feed (lg:col-span-5) -->
+                        <div class="lg:col-span-5 flex flex-col items-center justify-center bg-slate-950/80 rounded-xl p-6 border border-slate-800 relative overflow-hidden min-h-[300px]">
+                            <!-- Grid background and overlay line simulation -->
+                            <div class="absolute inset-0 cyber-grid opacity-10"></div>
+                            <div class="absolute top-0 left-0 w-full h-[2px] bg-cyber-cyan/30 animate-[scanline_4s_linear_infinite]"></div>
+
+                            <!-- Vector representation of cyborg head structure -->
+                            <svg class="w-64 h-64 text-cyber-cyan/30 relative z-10 transition-all duration-500 hover:scale-105" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <!-- Brain / Neural Map Overlay -->
+                                <circle id="svg-neuron-1" cx="50" cy="20" r="2" fill="#22d3ee" class="animate-pulse" />
+                                <circle id="svg-neuron-2" cx="35" cy="30" r="2" fill="#a855f7" class="animate-pulse" style="animation-delay: 0.5s;" />
+                                <circle id="svg-neuron-3" cx="65" cy="30" r="2" fill="#ec4899" class="animate-pulse" style="animation-delay: 1s;" />
+                                <circle id="svg-neuron-4" cx="50" cy="45" r="2" fill="#22d3ee" class="animate-pulse" style="animation-delay: 1.5s;" />
+                                
+                                <line x1="50" y1="20" x2="35" y2="30" stroke="#22d3ee" stroke-dasharray="1,2" />
+                                <line x1="50" y1="20" x2="65" y2="30" stroke="#ec4899" stroke-dasharray="1,2" />
+                                <line x1="35" y1="30" x2="50" y2="45" stroke="#a855f7" stroke-dasharray="1,2" />
+                                <line x1="65" y1="30" x2="50" y2="45" stroke="#22d3ee" stroke-dasharray="1,2" />
+
+                                <!-- Facial / Skull contours -->
+                                <path d="M50,15 C25,15 20,40 25,60 C27,70 35,85 50,90 C65,90 73,70 75,60 C80,40 75,15 50,15 Z" />
+                                <path d="M30,50 L70,50" opacity="0.4" />
+                                <path d="M50,15 L50,90" opacity="0.2" />
+                                
+                                <!-- Mechanical eye optic -->
+                                <circle id="cybernetic-eye" cx="37" cy="42" r="4" stroke="#ec4899" stroke-width="2" class="fill-cyber-magenta/20" />
+                                <circle cx="37" cy="42" r="1" fill="#fff" />
+                                <circle id="human-eye" cx="63" cy="42" r="4" stroke="#22d3ee" />
+                                <circle cx="63" cy="42" r="1" fill="#22d3ee" />
+                                
+                                <!-- Cheek mechanical routing lines -->
+                                <path d="M25,60 L40,75 L50,75" stroke="#a855f7" opacity="0.7" />
+                                <path d="M75,60 L60,75 L50,75" stroke="#22d3ee" opacity="0.7" />
+                            </svg>
+
+                            <div class="mt-4 font-mono text-xs text-center text-slate-500 z-10">
+                                OPTIC DRIVER: <span class="text-cyber-magenta" id="dashboard-system-mode">AUGMENTED CHASSIS READY</span>
+                            </div>
+                        </div>
+
+                        <!-- Right Interactive Controllers (lg:col-span-3) -->
+                        <div class="lg:col-span-3 space-y-6 font-rajdhani text-lg">
+                            <h3 class="font-orbitron text-xs text-slate-500 uppercase tracking-widest">Interface Modifiers</h3>
+                            
+                            <!-- Control 1 -->
+                            <div class="p-4 bg-slate-900/40 border border-slate-800 rounded-lg flex flex-col gap-2">
+                                <label class="text-sm font-semibold text-slate-300">Neural Sync Gain</label>
+                                <input type="range" min="10" max="100" value="88" id="slider-sync" oninput="adjustDashboard('sync')" class="w-full accent-cyber-cyan cursor-pointer bg-slate-950 h-1.5 rounded">
+                                <div class="flex justify-between text-xs text-slate-500 font-mono">
+                                    <span>MIN</span>
+                                    <span>LIMIT BOOST</span>
+                                </div>
+                            </div>
+
+                            <!-- Control 2 -->
+                            <div class="p-4 bg-slate-900/40 border border-slate-800 rounded-lg flex flex-col gap-2">
+                                <label class="text-sm font-semibold text-slate-300">Replication Factor</label>
+                                <input type="range" min="5" max="100" value="56" id="slider-nano" oninput="adjustDashboard('nano')" class="w-full accent-cyber-purple cursor-pointer bg-slate-950 h-1.5 rounded">
+                                <div class="flex justify-between text-xs text-slate-500 font-mono">
+                                    <span>SAFE</span>
+                                    <span>OVERDRIVE</span>
+                                </div>
+                            </div>
+
+                            <!-- Button toggles -->
+                            <button onclick="triggerOverdrive()" class="w-full py-3 bg-gradient-to-r from-cyber-cyan to-cyber-purple text-slate-950 font-orbitron text-xs tracking-widest font-bold uppercase rounded hover:shadow-neon-cyan transition-all duration-300">
+                                ACTIVATE OVERDRIVE MODE
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURES SECTION (Cybernetic Augments) -->
+        <section id="features" class="py-24 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                
+                <div class="text-center max-w-3xl mx-auto mb-20 reveal">
+                    <h2 class="font-orbitron text-base text-cyber-cyan font-bold tracking-[0.2em] uppercase mb-3">Core Modalities</h2>
+                    <p class="font-orbitron text-3xl sm:text-4xl font-extrabold text-white">TACTICAL BIO-AUGMENTATIONS</p>
+                    <div class="w-16 h-1 bg-cyber-cyan mx-auto mt-4 rounded"></div>
+                    <p class="text-slate-400 mt-6 font-space">Replace fragility with titanium precision. Integrate quantum architecture straight into your biology.</p>
+                </div>
+
+                <!-- Grid of Features -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Feature Card 1 -->
+                    <div class="glass-panel p-8 rounded-xl border border-slate-800 hover:border-cyber-cyan/50 hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden reveal">
+                        <!-- Top neon glow strip -->
+                        <div class="absolute top-0 left-0 w-full h-[2px] bg-cyber-cyan scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                        <div class="w-14 h-14 bg-cyber-cyan/10 border border-cyber-cyan/30 rounded-lg flex items-center justify-center text-cyber-cyan text-2xl mb-6 group-hover:shadow-neon-cyan transition-all duration-300">
+                            <i class="fa-solid fa-circle-nodes"></i>
+                        </div>
+                        <h3 class="font-orbitron text-xl font-bold text-white mb-3">Neural Link Mesh</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Direct micro-filament array weaving directly into the neocortex. Stream data at sub-millisecond latencies from quantum networks directly into memory sectors.
+                        </p>
+                        <div class="text-xs font-mono text-cyber-cyan flex items-center gap-2">
+                            <span>AUGMENT LEVEL 4</span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-cyber-cyan"></span>
+                            <span>CERTIFIED CORE</span>
+                        </div>
+                    </div>
+
+                    <!-- Feature Card 2 -->
+                    <div class="glass-panel p-8 rounded-xl border border-slate-800 hover:border-cyber-purple/50 hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden reveal" style="transition-delay: 0.1s;">
+                        <!-- Top neon glow strip -->
+                        <div class="absolute top-0 left-0 w-full h-[2px] bg-cyber-purple scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                        <div class="w-14 h-14 bg-cyber-purple/10 border border-cyber-purple/30 rounded-lg flex items-center justify-center text-cyber-purple text-2xl mb-6 group-hover:shadow-neon-purple transition-all duration-300">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3 class="font-orbitron text-xl font-bold text-white mb-3">Sub-Dermal Armor</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Interwoven liquid graphene alloy scales reacting instantaneously to impact velocities. Unmatched physical protection without sacrificing standard dynamic flexibility.
+                        </p>
+                        <div class="text-xs font-mono text-cyber-purple flex items-center gap-2">
+                            <span>ARMOR CLASS IX</span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-cyber-purple"></span>
+                            <span>BALLISTIC</span>
+                        </div>
+                    </div>
+
+                    <!-- Feature Card 3 -->
+                    <div class="glass-panel p-8 rounded-xl border border-slate-800 hover:border-cyber-magenta/50 hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden reveal" style="transition-delay: 0.2s;">
+                        <!-- Top neon glow strip -->
+                        <div class="absolute top-0 left-0 w-full h-[2px] bg-cyber-magenta scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                        <div class="w-14 h-14 bg-cyber-magenta/10 border border-cyber-magenta/30 rounded-lg flex items-center justify-center text-cyber-magenta text-2xl mb-6 group-hover:shadow-neon-magenta transition-all duration-300">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                        <h3 class="font-orbitron text-xl font-bold text-white mb-3">HUD Optic Drivers</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Micro-LED optic system offering real-time situational analysis, infrared rendering, spatial projection, threat detection arrays, and environment overlay grids.
+                        </p>
+                        <div class="text-xs font-mono text-cyber-magenta flex items-center gap-2">
+                            <span>CHASSIS OPTIC v9</span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-cyber-magenta"></span>
+                            <span>LUMINESCENT</span>
+                        </div>
+                    </div>
+
+                    <!-- Feature Card 4 -->
+                    <div class="glass-panel p-8 rounded-xl border border-slate-800 hover:border-cyber-cyan/50 hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden reveal">
+                        <!-- Top neon glow strip -->
+                        <div class="absolute top-0 left-0 w-full h-[2px] bg-cyber-cyan scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                        <div class="w-14 h-14 bg-cyber-cyan/10 border border-cyber-cyan/30 rounded-lg flex items-center justify-center text-cyber-cyan text-2xl mb-6 group-hover:shadow-neon-cyan transition-all duration-300">
+                            <i class="fa-solid fa-battery-three-quarters"></i>
+                        </div>
+                        <h3 class="font-orbitron text-xl font-bold text-white mb-3">Fusion Battery Core</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            A compact sub-diaphragmatic quantum chemical battery providing lifetime energy support. Eliminates caloric dependency for bio-artificial organs indefinitely.
+                        </p>
+                        <div class="text-xs font-mono text-cyber-cyan flex items-center gap-2">
+                            <span>LIFETIME WARRANTY</span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-cyber-cyan"></span>
+                            <span>ZERO CALORIES</span>
+                        </div>
+                    </div>
+
+                    <!-- Feature Card 5 -->
+                    <div class="glass-panel p-8 rounded-xl border border-slate-800 hover:border-cyber-purple/50 hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden reveal" style="transition-delay: 0.1s;">
+                        <!-- Top neon glow strip -->
+                        <div class="absolute top-0 left-0 w-full h-[2px] bg-cyber-purple scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                        <div class="w-14 h-14 bg-cyber-purple/10 border border-cyber-purple/30 rounded-lg flex items-center justify-center text-cyber-purple text-2xl mb-6 group-hover:shadow-neon-purple transition-all duration-300">
+                            <i class="fa-solid fa-hand-fist"></i>
+                        </div>
+                        <h3 class="font-orbitron text-xl font-bold text-white mb-3">Myo-electric Actuators</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Reinforced carbon-fiber limbs powered by super-conductive polymer fibers. Elevate standard biological lifting capacity by up to 2,000% safely.
+                        </p>
+                        <div class="text-xs font-mono text-cyber-purple flex items-center gap-2">
+                            <span>STRENGTH LEVEL MAX</span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-cyber-purple"></span>
+                            <span>TACTILE</span>
+                        </div>
+                    </div>
+
+                    <!-- Feature Card 6 -->
+                    <div class="glass-panel p-8 rounded-xl border border-slate-800 hover:border-cyber-magenta/50 hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden reveal" style="transition-delay: 0.2s;">
+                        <!-- Top neon glow strip -->
+                        <div class="absolute top-0 left-0 w-full h-[2px] bg-cyber-magenta scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                        <div class="w-14 h-14 bg-cyber-magenta/10 border border-cyber-magenta/30 rounded-lg flex items-center justify-center text-cyber-magenta text-2xl mb-6 group-hover:shadow-neon-magenta transition-all duration-300">
+                            <i class="fa-solid fa-network-wired"></i>
+                        </div>
+                        <h3 class="font-orbitron text-xl font-bold text-white mb-3">Holographic Deck</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            Generate physical and optical light matrix structures directly from wrist projection modules for secure, air-gapped terminal operations anywhere in the field.
+                        </p>
+                        <div class="text-xs font-mono text-cyber-magenta flex items-center gap-2">
+                            <span>SECURE TERMINAL</span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-cyber-magenta"></span>
+                            <span>HOLO GRID</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="py-24 bg-cyber-darker relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    
+                    <!-- Left: Graphic Representation / Modern UI mockup -->
+                    <div class="relative order-2 lg:order-1 flex justify-center reveal">
+                        <!-- Neon framing backdrop -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-cyber-cyan/10 via-cyber-purple/10 to-transparent blur-3xl"></div>
+                        <div class="relative glass-panel rounded-2xl border border-slate-800 p-8 w-full max-w-lg shadow-cyber-glass">
+                            <!-- Code Header -->
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 bg-cyber-magenta rounded-full"></span>
+                                    <span class="w-3 h-3 bg-cyber-purple rounded-full"></span>
+                                    <span class="w-3 h-3 bg-cyber-cyan rounded-full"></span>
+                                </div>
+                                <span class="font-mono text-xs text-slate-500">CHASSIS_CONFIG.JSON</span>
+                            </div>
+
+                            <!-- Mock Tech Code block -->
+                            <div class="font-mono text-xs sm:text-sm text-slate-400 space-y-2 overflow-x-auto">
+                                <p><span class="text-cyber-cyan">const</span> chassisConfig = {</p>
+                                <p class="pl-4">subject: <span class="text-cyber-magenta">"Human_Enhanced"</span>,</p>
+                                <p class="pl-4">neuralLinkSyncRate: <span class="text-yellow-500">0.9992</span>,</p>
+                                <p class="pl-4">biologicalVessels: [</p>
+                                <p class="pl-8">"Cerebral_Nortex_Filament",</p>
+                                <p class="pl-8 text-cyber-cyan">"Left_Optic_Subassembly",</p>
+                                <p class="pl-8">"Bio_Battery_Integrator"</p>
+                                <p class="pl-4">],</p>
+                                <p class="pl-4">combatRating: <span class="text-cyan-400">98.8</span>,</p>
+                                <p class="pl-4">firmwareVersion: <span class="text-cyber-magenta">"Alpha_9.1_Core"</span>,</p>
+                                <p class="pl-4">isOverdriveEnabled: <span class="text-emerald-500">true</span></p>
+                                <p class="text-cyber-cyan">};</p>
+                                <br>
+                                <p class="text-slate-500">// Executing self-repair protocol...</p>
+                                <p class="text-emerald-500 flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check animate-pulse"></i> SYNAPSE SYSTEM STABILIZED
+                                </p>
+                            </div>
+
+                            <!-- Decorative HUD element -->
+                            <div class="absolute -right-4 -bottom-4 w-32 h-32 border-r-2 border-b-2 border-cyber-cyan/30 rounded-br-2xl hidden sm:block pointer-events-none"></div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Text Content -->
+                    <div class="space-y-6 order-1 lg:order-2 reveal">
+                        <h2 class="font-orbitron text-base text-cyber-purple font-bold tracking-[0.2em] uppercase">Synthetic Awakening</h2>
+                        <h3 class="font-orbitron text-3xl sm:text-5xl font-black text-white leading-tight">
+                            TRANSCENDING <br>
+                            THE HUMAN VESSEL
+                        </h3>
+                        <div class="w-16 h-1 bg-cyber-purple rounded"></div>
+                        
+                        <p class="text-slate-400 font-space leading-relaxed text-lg">
+                            Humanity has reached the outer boundary of traditional evolution. Biological limits can now be redesigned. NEURAL-X offers state-of-the-art cybernetic hardware and cognitive software, bridging raw organic minds with multi-threaded artificial consciousness.
+                        </p>
+
+                        <p class="text-slate-500 font-space leading-relaxed">
+                            Through ultra-safe micro-invasive surgery, we augment your sensory nodes, motor capacity, and calculation thresholds. Step into a world where memory is limitless, and biological failure is a legacy bug.
+                        </p>
+
+                        <div class="flex flex-wrap gap-4 pt-4">
+                            <div class="flex items-center gap-2 border border-slate-800 bg-slate-900/50 px-4 py-2.5 rounded text-sm text-slate-300 font-mono">
+                                <i class="fa-solid fa-shield text-cyber-cyan"></i> FDA APPROVED NANOTECH
+                            </div>
+                            <div class="flex items-center gap-2 border border-slate-800 bg-slate-900/50 px-4 py-2.5 rounded text-sm text-slate-300 font-mono">
+                                <i class="fa-solid fa-dna text-cyber-magenta"></i> GENETIC HARMONIZED
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- TECHNOLOGY SECTION (Progress & Specs) -->
+        <section id="technology" class="py-24 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                    
+                    <!-- Left: Stats -->
+                    <div class="lg:col-span-5 space-y-6 reveal">
+                        <h2 class="font-orbitron text-base text-cyber-cyan font-bold tracking-[0.2em] uppercase">SYSTEM PARAMETERS</h2>
+                        <h3 class="font-orbitron text-3xl sm:text-4xl font-extrabold text-white">TECH ARCHITECTURE SPECIFICATIONS</h3>
+                        <div class="w-16 h-1 bg-cyber-cyan rounded"></div>
+                        <p class="text-slate-400 font-space">
+                            Our architecture is designed for multi-tier modular augmentation. Fully compliant with human DNA structures and cognitive compatibility vectors.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 gap-6 pt-4 font-orbitron">
+                            <div class="p-4 bg-slate-900/40 rounded-xl border border-slate-800/60">
+                                <div class="text-3xl font-bold text-cyber-cyan mb-1">0.05ms</div>
+                                <div class="text-xs text-slate-500 uppercase tracking-wider font-rajdhani">Synapse Overdrive Latency</div>
+                            </div>
+                            <div class="p-4 bg-slate-900/40 rounded-xl border border-slate-800/60">
+                                <div class="text-3xl font-bold text-cyber-purple mb-1">98.6%</div>
+                                <div class="text-xs text-slate-500 uppercase tracking-wider font-rajdhani">Biocompatibility Ratio</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Tech Progress Metrics -->
+                    <div class="lg:col-span-7 space-y-6 glass-panel p-8 rounded-2xl border border-slate-800 shadow-cyber-glass reveal">
+                        <h4 class="font-orbitron text-sm text-slate-400 tracking-wider font-semibold mb-6 uppercase flex items-center justify-between">
+                            <span>FIRMWARE SUBSYSTEMS</span>
+                            <span class="text-xs text-cyber-cyan font-mono">STABLE // REV.9</span>
+                        </h4>
+
+                        <!-- Metric 1 -->
+                        <div>
+                            <div class="flex justify-between font-mono text-sm mb-2 text-slate-300">
+                                <span>NEURAL INTERFACE SYNAPSE</span>
+                                <span class="text-cyber-cyan font-bold">95%</span>
+                            </div>
+                            <div class="w-full bg-slate-950 h-3 rounded border border-slate-800 p-0.5 overflow-hidden">
+                                <div class="bg-gradient-to-r from-cyber-cyan to-cyber-purple h-full rounded-sm" style="width: 95%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Metric 2 -->
+                        <div>
+                            <div class="flex justify-between font-mono text-sm mb-2 text-slate-300">
+                                <span>AI COGNITIVE QUANTUM COMPUTE</span>
+                                <span class="text-cyber-purple font-bold">88%</span>
+                            </div>
+                            <div class="w-full bg-slate-950 h-3 rounded border border-slate-800 p-0.5 overflow-hidden">
+                                <div class="bg-gradient-to-r from-cyber-purple to-cyber-magenta h-full rounded-sm" style="width: 88%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Metric 3 -->
+                        <div>
+                            <div class="flex justify-between font-mono text-sm mb-2 text-slate-300">
+                                <span>TACTICAL ROBOTICS CONTROL</span>
+                                <span class="text-cyber-magenta font-bold">78%</span>
+                            </div>
+                            <div class="w-full bg-slate-950 h-3 rounded border border-slate-800 p-0.5 overflow-hidden">
+                                <div class="bg-gradient-to-r from-cyber-magenta to-cyber-cyan h-full rounded-sm" style="width: 78%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Metric 4 -->
+                        <div>
+                            <div class="flex justify-between font-mono text-sm mb-2 text-slate-300">
+                                <span>CYBERNETIC NANOBOT REPAIR</span>
+                                <span class="text-cyber-cyan font-bold">92%</span>
+                            </div>
+                            <div class="w-full bg-slate-950 h-3 rounded border border-slate-800 p-0.5 overflow-hidden">
+                                <div class="bg-gradient-to-r from-cyber-cyan to-cyber-purple h-full rounded-sm" style="width: 92%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS SECTION -->
+        <section id="testimonials" class="py-24 bg-cyber-darker relative border-t border-slate-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                    <h2 class="font-orbitron text-base text-cyber-magenta font-bold tracking-[0.2em] uppercase mb-3">Sync Logs</h2>
+                    <p class="font-orbitron text-3xl sm:text-4xl font-extrabold text-white">CHASSIS UPGRADE TESTIMONIALS</p>
+                    <div class="w-16 h-1 bg-cyber-magenta mx-auto mt-4 rounded"></div>
+                    <p class="text-slate-400 mt-6 font-space">Read certified test logs from subjects who migrated their standard consciousness into NEURAL-X hulls.</p>
+                </div>
+
+                <!-- Interactive Testimonials Carousel -->
+                <div class="relative max-w-4xl mx-auto reveal">
+                    <!-- Carousel Outer Wrapper -->
+                    <div class="overflow-hidden relative min-h-[250px]">
+                        <!-- Slides -->
+                        <div id="testimonial-container" class="flex transition-transform duration-500 ease-in-out">
+                            <!-- Slide 1 -->
+                            <div class="w-full flex-shrink-0 px-4">
+                                <div class="glass-panel p-8 sm:p-12 rounded-2xl border border-slate-800 relative shadow-cyber-glass flex flex-col md:flex-row gap-8 items-center">
+                                    <div class="w-24 h-24 rounded-full border-2 border-cyber-cyan p-1 shrink-0 overflow-hidden relative">
+                                        <div class="absolute inset-0 bg-cyber-cyan/20 animate-pulse"></div>
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200" alt="Subject" class="w-full h-full object-cover rounded-full filter grayscale contrast-125 hover:grayscale-0 transition-all duration-500">
+                                    </div>
+                                    <div class="space-y-4 text-center md:text-left">
+                                        <p class="text-slate-300 italic font-space text-base sm:text-lg">
+                                            "Updating to the NEURAL-X platform has completely rewritten my limits. Processing thousands of concurrent data streams is as natural as breathing. I am now fully synchronized with my smart home, office dashboard, and local clouds."
+                                        </p>
+                                        <div>
+                                            <div class="font-orbitron text-cyber-cyan font-bold">K. Henderson (Design Architect)</div>
+                                            <div class="text-xs text-slate-500 font-mono tracking-wider">AUGMENTED DEC 2025 // SYNAPSE RATE 99.4%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Slide 2 -->
+                            <div class="w-full flex-shrink-0 px-4">
+                                <div class="glass-panel p-8 sm:p-12 rounded-2xl border border-slate-800 relative shadow-cyber-glass flex flex-col md:flex-row gap-8 items-center">
+                                    <div class="w-24 h-24 rounded-full border-2 border-cyber-purple p-1 shrink-0 overflow-hidden relative">
+                                        <div class="absolute inset-0 bg-cyber-purple/20 animate-pulse"></div>
+                                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200" alt="Subject" class="w-full h-full object-cover rounded-full filter grayscale contrast-125 hover:grayscale-0 transition-all duration-500">
+                                    </div>
+                                    <div class="space-y-4 text-center md:text-left">
+                                        <p class="text-slate-300 italic font-space text-base sm:text-lg">
+                                            "The Sub-Dermal Armor and Fusion Battery Core feel incredible. Physical fatigue has been completely purged from my system. Best performance decision of my life, both for active athletics and professional high-intensity operations."
+                                        </p>
+                                        <div>
+                                            <div class="font-orbitron text-cyber-purple font-bold">S. Kovacs (Defense Contractor)</div>
+                                            <div class="text-xs text-slate-500 font-mono tracking-wider">AUGMENTED MAR 2026 // SYNAPSE RATE 98.9%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Left / Right Controls -->
+                    <div class="flex justify-center gap-4 mt-8">
+                        <button onclick="prevTestimonial()" class="w-12 h-12 rounded-full border border-slate-850 hover:border-cyber-cyan flex items-center justify-center text-slate-400 hover:text-cyber-cyan bg-slate-900/60 transition-all duration-300 shadow-cyber-glass">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                        <button onclick="nextTestimonial()" class="w-12 h-12 rounded-full border border-slate-850 hover:border-cyber-cyan flex items-center justify-center text-slate-400 hover:text-cyber-cyan bg-slate-900/60 transition-all duration-300 shadow-cyber-glass">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION (Futuristic Styled Form) -->
+        <section id="contact" class="py-24 relative overflow-hidden">
+            <!-- Cybernetic geometry graphic details -->
+            <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-cyber-cyan/5 blur-[120px] rounded-full pointer-events-none"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    
+                    <!-- Left: Text & System Alert -->
+                    <div class="space-y-6 reveal">
+                        <h2 class="font-orbitron text-base text-cyber-cyan font-bold tracking-[0.2em] uppercase">SECURE LINKUP</h2>
+                        <h3 class="font-orbitron text-3xl sm:text-5xl font-black text-white leading-tight">
+                            INITIATE YOUR <br>
+                            MIGRATION SEQUENCE
+                        </h3>
+                        <div class="w-16 h-1 bg-cyber-cyan rounded"></div>
+                        
+                        <p class="text-slate-400 font-space leading-relaxed">
+                            Have questions regarding biocompatibility parameters, surgical timelines, custom plating options, or neural security protocols? Connect to our secure console immediately.
+                        </p>
+
+                        <div class="p-6 bg-slate-900/40 border border-slate-800 rounded-xl space-y-4">
+                            <div class="flex items-center gap-4 text-slate-300">
+                                <div class="w-10 h-10 rounded bg-cyber-cyan/10 flex items-center justify-center text-cyber-cyan border border-cyber-cyan/20">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div class="font-space">
+                                    <div class="text-xs text-slate-500 font-mono">CORE NODE LOCATION</div>
+                                    <div class="text-sm">Sector 12, Cyber-City Grid Alpha</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center gap-4 text-slate-300">
+                                <div class="w-10 h-10 rounded bg-cyber-purple/10 flex items-center justify-center text-cyber-purple border border-cyber-purple/20">
+                                    <i class="fa-solid fa-headset"></i>
+                                </div>
+                                <div class="font-space">
+                                    <div class="text-xs text-slate-500 font-mono">SUPPORT CORE COMM-LINE</div>
+                                    <div class="text-sm">+1 (888) CYBORG-NOW</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Fully Validated Form -->
+                    <div class="glass-panel p-8 rounded-2xl border border-slate-800 shadow-cyber-glass relative reveal">
+                        <div class="absolute -top-3 left-6 px-3 py-1 bg-cyber-cyan/10 border border-cyber-cyan/30 rounded text-[10px] font-mono tracking-widest text-cyber-cyan uppercase">
+                            DIRECT CONSOLE INTERFACE
+                        </div>
+
+                        <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-6 pt-2 font-space">
+                            <!-- Name Field -->
+                            <div>
+                                <label for="form-name" class="block text-xs uppercase tracking-widest text-slate-400 font-mono mb-2">Subject Name / Identity Code</label>
+                                <input type="text" id="form-name" placeholder="e.g. John Doe / NX-490" class="w-full bg-slate-950/80 border border-slate-800 rounded px-4 py-3 text-white focus:outline-none focus:border-cyber-cyan focus:shadow-neon-cyan transition-all duration-300" required>
+                                <p id="error-name" class="text-xs text-red-400 mt-1.5 hidden">Identity parameter cannot be blank.</p>
+                            </div>
+
+                            <!-- Email Field -->
+                            <div>
+                                <label for="form-email" class="block text-xs uppercase tracking-widest text-slate-400 font-mono mb-2">Secure Netcom Address (Email)</label>
+                                <input type="email" id="form-email" placeholder="e.g. j.doe@neuralnet.com" class="w-full bg-slate-950/80 border border-slate-800 rounded px-4 py-3 text-white focus:outline-none focus:border-cyber-cyan focus:shadow-neon-cyan transition-all duration-300" required>
+                                <p id="error-email" class="text-xs text-red-400 mt-1.5 hidden">A valid Netcom/Email address is required.</p>
+                            </div>
+
+                            <!-- Message Field -->
+                            <div>
+                                <label for="form-message" class="block text-xs uppercase tracking-widest text-slate-400 font-mono mb-2">Inquiry / Specs / Config Requests</label>
+                                <textarea id="form-message" rows="4" placeholder="Detail your desired chassis augments, synapse levels, or project needs..." class="w-full bg-slate-950/80 border border-slate-800 rounded px-4 py-3 text-white focus:outline-none focus:border-cyber-cyan focus:shadow-neon-cyan transition-all duration-300" required></textarea>
+                                <p id="error-message" class="text-xs text-red-400 mt-1.5 hidden">Please provide some details for analysis.</p>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="w-full py-4 bg-cyber-cyan hover:bg-cyan-300 text-slate-950 font-orbitron text-xs tracking-widest font-extrabold uppercase rounded shadow-neon-cyan hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-paper-plane"></i> TRANSMIT CONSOLE DATA
+                            </button>
+                        </form>
+
+                        <!-- Success message overlay -->
+                        <div id="contact-success" class="absolute inset-0 bg-slate-950/95 backdrop-blur-md rounded-2xl flex flex-col justify-center items-center text-center p-8 hidden">
+                            <div class="w-16 h-16 rounded-full border border-cyber-cyan/50 flex items-center justify-center text-cyber-cyan text-3xl mb-4 animate-bounce">
+                                <i class="fa-solid fa-satellite-dish"></i>
+                            </div>
+                            <h4 class="font-orbitron text-xl font-bold text-white mb-2 uppercase">DATA ENCRYPTED & TRANSMITTED</h4>
+                            <p class="text-slate-400 font-space text-sm max-w-sm mb-6">
+                                Your synthetic telemetry data was transferred to Sector 12 secure network nodes. High-intelligence agents will initiate link-back protocols shortly.
+                            </p>
+                            <button onclick="resetContactForm()" class="px-6 py-2.5 bg-slate-900 border border-slate-800 hover:border-cyber-cyan text-cyber-cyan font-orbitron text-xs uppercase tracking-widest rounded transition-all">
+                                RE-OPEN TELEMETRY CONSOLE
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="bg-cyber-darker border-t border-slate-900 py-12 relative z-10 font-space">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                
+                <!-- Logo / Copyright (md:col-span-4) -->
+                <div class="md:col-span-4 flex flex-col items-center md:items-start space-y-4">
+                    <a href="#" class="flex items-center gap-3">
+                        <div class="relative w-8 h-8 flex items-center justify-center bg-slate-900 rounded border border-cyber-cyan">
+                            <i class="fa-solid fa-brain text-cyber-cyan text-sm"></i>
+                        </div>
+                        <span class="font-orbitron font-extrabold text-lg tracking-wider text-white">
+                            NEURAL<span class="text-cyber-magenta">-X</span>
+                        </span>
+                    </a>
+                    <p class="text-xs text-slate-500 font-mono text-center md:text-left">
+                        © 2026 NEURAL-X COGNITIVE LABS. GRID SECTOR 12. ALL RIGHTS ENCRYPTED.
+                    </p>
+                </div>
+
+                <!-- Footer Nav (md:col-span-5) -->
+                <div class="md:col-span-5 flex justify-center gap-8 font-rajdhani text-base font-semibold tracking-wider text-slate-400">
+                    <a href="#hero" class="hover:text-cyber-cyan transition">CORE</a>
+                    <a href="#features" class="hover:text-cyber-cyan transition">AUGMENTS</a>
+                    <a href="#dashboard" class="hover:text-cyber-cyan transition">CONSOLE</a>
+                    <a href="#about" class="hover:text-cyber-cyan transition">CHASSIS</a>
+                    <a href="#contact" class="hover:text-cyber-cyan transition">CONTACT</a>
+                </div>
+
+                <!-- Socials (md:col-span-3) -->
+                <div class="md:col-span-3 flex justify-center md:justify-end gap-4 text-lg">
+                    <a href="#" class="w-10 h-10 rounded border border-slate-800 hover:border-cyber-cyan hover:text-cyber-cyan flex items-center justify-center text-slate-400 transition-all duration-300">
+                        <i class="fa-brands fa-discord"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded border border-slate-800 hover:border-cyber-purple hover:text-cyber-purple flex items-center justify-center text-slate-400 transition-all duration-300">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded border border-slate-800 hover:border-cyber-magenta hover:text-cyber-magenta flex items-center justify-center text-slate-400 transition-all duration-300">
+                        <i class="fa-brands fa-twitter"></i>
+                    </a>
+                </div>
+
+            </div>
+        </footer>
+
+        <!-- INTERACTIVE CYBORG AI ASSISTANT (Gemini Integration) -->
+        <div class="fixed bottom-6 right-6 z-[999] font-space flex flex-col items-end">
+            <!-- Expanded Chat Terminal Window -->
+            <div id="ai-chat-window" class="w-80 sm:w-96 glass-panel rounded-2xl border border-slate-800 shadow-cyber-glass overflow-hidden flex flex-col mb-4 scale-0 opacity-0 origin-bottom-right transition-all duration-500">
+                <!-- Terminal Header -->
+                <div class="bg-slate-900 border-b border-slate-800 p-4 flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <span class="w-2.5 h-2.5 bg-cyber-cyan rounded-full animate-pulse"></span>
+                        <span class="font-orbitron text-xs font-bold tracking-widest text-cyber-cyan">NEURAL-X COGNITIVE CORE</span>
+                    </div>
+                    <button onclick="toggleAIChat()" class="text-slate-400 hover:text-white transition">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </div>
+
+                <!-- Terminal Messages Area -->
+                <div id="ai-messages" class="h-64 overflow-y-auto p-4 space-y-3 font-mono text-xs scrollbar-thin">
+                    <div class="p-2.5 rounded bg-slate-900/80 border border-slate-800/80 text-slate-300">
+                        <span class="text-cyber-cyan font-bold block mb-1">SYSTEM://</span> Welcome, Augmented Unit. I am NEURAL-X Core. Ask me about biomechanical sync speeds, custom titanium plating designs, or how to begin your evolution.
+                    </div>
+                </div>
+
+                <!-- Terminal Input Area -->
+                <form id="ai-input-form" onsubmit="handleAISend(event)" class="border-t border-slate-800 p-3 flex gap-2 bg-slate-950/80">
+                    <input type="text" id="ai-user-query" placeholder="Query Neural-X Core..." class="flex-grow bg-slate-900 border border-slate-800 rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-cyber-cyan font-mono" required>
+                    <button type="submit" class="w-9 h-9 shrink-0 bg-cyber-cyan hover:bg-cyan-300 text-slate-950 rounded flex items-center justify-center transition-all duration-300 shadow-neon-cyan">
+                        <i class="fa-solid fa-terminal text-sm"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Main Pulsing AI Activator Capsule -->
+            <button onclick="toggleAIChat()" class="relative group flex items-center gap-3 bg-slate-900/90 border border-cyber-cyan/50 hover:border-cyber-cyan px-4 py-3 rounded-full shadow-neon-cyan hover:shadow-lg transition-all duration-500">
+                <span class="absolute inset-0 rounded-full border border-cyber-cyan animate-ping opacity-25"></span>
+                <span class="font-orbitron font-bold text-xs tracking-widest text-cyber-cyan">NEURAL-X AI</span>
+                <div class="w-8 h-8 rounded-full bg-cyber-cyan/20 flex items-center justify-center text-cyber-cyan text-sm group-hover:scale-110 transition-all">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+            </button>
+        </div>
+
+        <!-- NOTIFICATION / TOAST TO USER -->
+        <div id="toast-notification" class="fixed top-24 right-6 z-[1000] glass-panel border border-cyber-cyan/40 px-5 py-4 rounded-xl flex items-start gap-4 shadow-neon-cyan -translate-y-24 opacity-0 transition-all duration-500 max-w-sm">
+            <div class="w-10 h-10 rounded-full bg-cyber-cyan/10 border border-cyber-cyan flex items-center justify-center text-cyber-cyan shrink-0 animate-pulse">
+                <i class="fa-solid fa-circle-info"></i>
+            </div>
+            <div>
+                <h5 class="font-orbitron text-xs font-bold text-white uppercase tracking-wider mb-0.5" id="toast-title">HUD Alert</h5>
+                <p class="text-xs text-slate-300 font-mono" id="toast-msg">Cybernetic connection stable. All systems synchronized.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // 1. GLOBAL ENVIRONMENT VARIABLES (MANDATORY GEMINI STUFF)
+        const apiKey = ""; // Environment overrides this key with genuine key at runtime
+        const defaultAppId = typeof __app_id !== 'undefined' ? __app_id : 'cyber-landing-page';
+
+        // 2. LOADING SCREEN LOGIC
+        window.onload = function() {
+            const bar = document.getElementById('loader-bar');
+            const statusText = document.getElementById('loader-status');
+            const logText = document.getElementById('loader-log');
+            const loader = document.getElementById('loader');
+
+            const phases = [
+                { width: '20%', status: 'CONNECTING COGNITIVE SYNAPSE...', log: 'Neural_Core_v2.5.8... CONNECTED' },
+                { width: '45%', status: 'CALIBRATING SUB-DERMAL PLATES...', log: 'Actuator_Driver_HoloMesh... ONLINE' },
+                { width: '75%', status: 'BOOTING AI NEURAL TERMINALS...', log: 'Quantum_Bridge... SYNC_OK' },
+                { width: '100%', status: 'ALL CYBER SYSTEMS ONLINE!', log: 'Subject_Status: EXCELLENT' }
+            ];
+
+            let currentPhase = 0;
+            const interval = setInterval(() => {
+                if (currentPhase < phases.length) {
+                    bar.style.width = phases[currentPhase].width;
+                    statusText.innerText = phases[currentPhase].status;
+                    logText.innerText = phases[currentPhase].log;
+                    currentPhase++;
+                } else {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        loader.style.opacity = '0';
+                        loader.style.pointerEvents = 'none';
+                    }, 500);
+                }
+            }, 500);
+
+            // Initialize canvas hologram visualizer
+            initHologramCanvas();
+        };
+
+        // 3. HOLOGRAM ROTATING CORE VISUALIZER (Canvas based 3D simulation)
+        function initHologramCanvas() {
+            const canvas = document.getElementById('hologramCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Adjust dimensions dynamically
+            canvas.width = 400;
+            canvas.height = 400;
+
+            let points = [];
+            const count = 120; // Number of particles forming the sphere core
+
+            // Generate points in spherical layout coordinates
+            for (let i = 0; i < count; i++) {
+                const theta = Math.acos(Math.random() * 2 - 1);
+                const phi = Math.random() * Math.PI * 2;
+                points.push({
+                    x: Math.sin(theta) * Math.cos(phi) * 110,
+                    y: Math.sin(theta) * Math.sin(phi) * 110,
+                    z: Math.cos(theta) * 110,
+                    originalRadius: 110
+                });
+            }
+
+            let angleX = 0.005;
+            let angleY = 0.008;
+
+            // Track mouse to adjust rotation/interaction
+            let isDragging = false;
+            let previousMousePosition = { x: 0, y: 0 };
+
+            canvas.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                previousMousePosition = { x: e.clientX, y: e.clientY };
+            });
+
+            window.addEventListener('mouseup', () => { isDragging = false; });
+
+            canvas.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    const deltaX = e.clientX - previousMousePosition.x;
+                    const deltaY = e.clientY - previousMousePosition.y;
+                    
+                    angleY += deltaX * 0.001;
+                    angleX += deltaY * 0.001;
+                    
+                    previousMousePosition = { x: e.clientX, y: e.clientY };
+                }
+            });
+
+            // Touch events for mobile compatibility
+            canvas.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            });
+            window.addEventListener('touchend', () => { isDragging = false; });
+            canvas.addEventListener('touchmove', (e) => {
+                if (isDragging && e.touches.length > 0) {
+                    const deltaX = e.touches[0].clientX - previousMousePosition.x;
+                    const deltaY = e.touches[0].clientY - previousMousePosition.y;
+                    angleY += deltaX * 0.0015;
+                    angleX += deltaY * 0.0015;
+                    previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                }
+            });
+
+            function rotateX(point, angle) {
+                const rad = angle;
+                const cos = Math.cos(rad);
+                const sin = Math.sin(rad);
+                const y = point.y * cos - point.z * sin;
+                const z = point.y * sin + point.z * cos;
+                return { ...point, y, z };
+            }
+
+            function rotateY(point, angle) {
+                const rad = angle;
+                const cos = Math.cos(rad);
+                const sin = Math.sin(rad);
+                const x = point.x * cos + point.z * sin;
+                const z = -point.x * sin + point.z * cos;
+                return { ...point, x, z };
+            }
+
+            function animateHologram() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw digital backdrop radar rings
+                ctx.strokeStyle = 'rgba(34, 211, 238, 0.04)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.arc(200, 200, 150, 0, Math.PI * 2);
+                ctx.stroke();
+
+                ctx.strokeStyle = 'rgba(168, 85, 247, 0.03)';
+                ctx.beginPath();
+                ctx.arc(200, 200, 180, 0, Math.PI * 2);
+                ctx.stroke();
+
+                // Rotate points continuously
+                points = points.map(p => {
+                    let rotated = rotateX(p, angleX);
+                    rotated = rotateY(rotated, angleY);
+                    return rotated;
+                });
+
+                // Render lines connecting close points for mesh aesthetic
+                ctx.strokeStyle = 'rgba(34, 211, 238, 0.1)';
+                ctx.lineWidth = 0.5;
+                for (let i = 0; i < points.length; i++) {
+                    for (let j = i + 1; j < points.length; j++) {
+                        const dist = Math.hypot(points[i].x - points[j].x, points[i].y - points[j].y, points[i].z - points[j].z);
+                        if (dist < 48) {
+                            ctx.beginPath();
+                            ctx.moveTo(points[i].x + 200, points[i].y + 200);
+                            ctx.lineTo(points[j].x + 200, points[j].y + 200);
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                // Render individual points
+                points.forEach(p => {
+                    const depthFactor = (p.z + 110) / 220; // 0 to 1 scaling based on Z position
+                    const size = depthFactor * 3.5 + 1;
+                    
+                    // Color blend from Cyan to Magenta depending on rotation & depth
+                    const red = Math.floor(34 + (236 - 34) * depthFactor);
+                    const green = Math.floor(211 + (72 - 211) * depthFactor);
+                    const blue = Math.floor(238 + (153 - 238) * depthFactor);
+                    
+                    ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${depthFactor * 0.8 + 0.2})`;
+                    ctx.beginPath();
+                    ctx.arc(p.x + 200, p.y + 200, size, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Tiny neon outer halo
+                    if (depthFactor > 0.7) {
+                        ctx.strokeStyle = `rgba(${red}, ${green}, ${blue}, 0.25)`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.arc(p.x + 200, p.y + 200, size * 2, 0, Math.PI * 2);
+                        ctx.stroke();
+                    }
+                });
+
+                requestAnimationFrame(animateHologram);
+            }
+
+            animateHologram();
+        }
+
+        // 4. INTERACTION & HUD CUSTOM MODIFIERS
+        let syncModifier = 88;
+        let nanoModifier = 56;
+        let thermalRatio = 38.4;
+
+        function adjustDashboard(type) {
+            if (type === 'sync') {
+                syncModifier = document.getElementById('slider-sync').value;
+                document.getElementById('gauge-synapse-text').innerText = `${syncModifier} GB/s`;
+                document.getElementById('gauge-synapse-bar').style.width = `${syncModifier}%`;
+            } else if (type === 'nano') {
+                nanoModifier = document.getElementById('slider-nano').value;
+                document.getElementById('gauge-nano-text').innerText = `${nanoModifier}%`;
+                document.getElementById('gauge-nano-bar').style.width = `${nanoModifier}%`;
+            }
+        }
+
+        function triggerOverdrive() {
+            // Overdrive simulates maximum bandwidth boosts and triggers a screen flash overlay + notification
+            document.getElementById('slider-sync').value = 100;
+            document.getElementById('slider-nano').value = 98;
+            adjustDashboard('sync');
+            adjustDashboard('nano');
+            
+            // Speed up heartbeat ratio
+            document.getElementById('gauge-temp-text').innerText = `41.2°C`;
+            document.getElementById('gauge-temp-bar').style.width = `85%`;
+
+            // Optic eye modification change
+            document.getElementById('cybernetic-eye').setAttribute('stroke', '#22d3ee');
+            document.getElementById('dashboard-system-mode').innerText = "SYNAPSE OVERDRIVE INITIATED";
+            document.getElementById('dashboard-system-mode').className = "text-cyber-cyan animate-pulse";
+
+            showToast("SYNAPSE BOOSTER INITIATED", "Caution: Sub-dermal Nanobots performing overclock repairs. Synapse rate capped at 100%", "cyber-cyan");
+        }
+
+        function changeDashboardPreset(preset) {
+            const tabNeuro = document.getElementById('db-tab-neuro');
+            const tabCombat = document.getElementById('db-tab-combat');
+
+            if (preset === 'neuro') {
+                tabNeuro.className = "px-3 py-1.5 text-xs font-semibold bg-cyber-cyan text-slate-950 rounded transition-all";
+                tabCombat.className = "px-3 py-1.5 text-xs font-semibold text-slate-400 bg-slate-800 rounded hover:text-white transition-all";
+                
+                document.getElementById('slider-sync').value = 88;
+                document.getElementById('slider-nano').value = 56;
+                adjustDashboard('sync');
+                adjustDashboard('nano');
+                document.getElementById('gauge-temp-text').innerText = `38.4°C`;
+                document.getElementById('gauge-temp-bar').style.width = `38%`;
+                
+                document.getElementById('cybernetic-eye').setAttribute('stroke', '#ec4899');
+                document.getElementById('dashboard-system-mode').innerText = "AUGMENTED CHASSIS READY";
+                document.getElementById('dashboard-system-mode').className = "text-cyber-magenta";
+            } else {
+                tabCombat.className = "px-3 py-1.5 text-xs font-semibold bg-cyber-purple text-white rounded transition-all";
+                tabNeuro.className = "px-3 py-1.5 text-xs font-semibold text-slate-400 bg-slate-800 rounded hover:text-white transition-all";
+
+                document.getElementById('slider-sync').value = 45;
+                document.getElementById('slider-nano').value = 92;
+                adjustDashboard('sync');
+                adjustDashboard('nano');
+                document.getElementById('gauge-temp-text').innerText = `39.8°C`;
+                document.getElementById('gauge-temp-bar').style.width = `65%`;
+                
+                document.getElementById('cybernetic-eye').setAttribute('stroke', '#a855f7');
+                document.getElementById('dashboard-system-mode').innerText = "TACTICAL CHASSIS ARMED";
+                document.getElementById('dashboard-system-mode').className = "text-cyber-purple animate-pulse";
+            }
+        }
+
+        // 5. STICKY NAVBAR LOGIC
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.className = 'fixed top-0 left-0 w-full z-50 bg-cyber-bg/80 backdrop-blur-xl border-b border-slate-800 py-2';
+            } else {
+                navbar.className = 'fixed top-0 left-0 w-full z-50 border-b border-transparent py-0';
+            }
+        });
+
+        // 6. MOBILE MENU TOGGLING
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const bar1 = document.getElementById('bar1');
+        const bar2 = document.getElementById('bar2');
+        const bar3 = document.getElementById('bar3');
+
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+        function toggleMobileMenu() {
+            const isOpened = !mobileMenu.classList.contains('hidden');
+            if (isOpened) {
+                mobileMenu.classList.add('hidden');
+                bar1.style.transform = 'none';
+                bar2.style.opacity = '1';
+                bar3.style.transform = 'none';
+            } else {
+                mobileMenu.classList.remove('hidden');
+                bar1.style.transform = 'translateY(6px) rotate(45deg)';
+                bar2.style.opacity = '0';
+                bar3.style.transform = 'translateY(-6px) rotate(-45deg)';
+            }
+        }
+
+        // 7. TOAST NOTIFICATION UTILITY (No alert() as mandated)
+        function showToast(title, message, themeColor = 'cyber-cyan') {
+            const toast = document.getElementById('toast-notification');
+            const toastTitle = document.getElementById('toast-title');
+            const toastMsg = document.getElementById('toast-msg');
+
+            toastTitle.innerText = title;
+            toastMsg.innerText = message;
+
+            // Apply glow theme
+            toast.style.borderColor = themeColor === 'cyber-cyan' ? '#22d3ee' : themeColor === 'cyber-purple' ? '#a855f7' : '#ec4899';
+            toast.style.boxShadow = themeColor === 'cyber-cyan' ? '0 0 15px rgba(34, 211, 238, 0.4)' : themeColor === 'cyber-purple' ? '0 0 15px rgba(168, 85, 247, 0.4)' : '0 0 15px rgba(236, 72, 153, 0.4)';
+
+            toast.style.transform = 'translateY(0)';
+            toast.style.opacity = '1';
+
+            setTimeout(() => {
+                toast.style.transform = 'translateY(-100px)';
+                toast.style.opacity = '0';
+            }, 4000);
+        }
+
+        function toggleSystemAlert() {
+            showToast("DIAGNOSTICS: STABLE", "Chassis core operating under optimized temperatures. Sub-dermal integrity 100%. No anomalies detected.", "cyber-cyan");
+        }
+
+        // 8. INTERACTIVE TESTIMONIALS SLIDER
+        let currentSlide = 0;
+        const totalSlides = 2; // Slide count
+
+        function nextTestimonial() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateTestimonialPosition();
+        }
+
+        function prevTestimonial() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateTestimonialPosition();
+        }
+
+        function updateTestimonialPosition() {
+            const container = document.getElementById('testimonial-container');
+            container.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        // 9. FORM VALIDATION & TRANSMISSION INTERFACE
+        function handleContactSubmit(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('form-name').value.trim();
+            const email = document.getElementById('form-email').value.trim();
+            const message = document.getElementById('form-message').value.trim();
+
+            let isValid = true;
+
+            // Name verification
+            if (name === "") {
+                document.getElementById('error-name').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('error-name').classList.add('hidden');
+            }
+
+            // Email verification
+            const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById('error-email').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('error-email').classList.add('hidden');
+            }
+
+            // Message verification
+            if (message === "") {
+                document.getElementById('error-message').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('error-message').classList.add('hidden');
+            }
+
+            if (isValid) {
+                // Render success panel overlay smoothly
+                const successOverlay = document.getElementById('contact-success');
+                successOverlay.classList.remove('hidden');
+                successOverlay.classList.add('flex');
+                
+                showToast("COMMS TRANSMITTED", "Telemetry successfully uploaded. Secure channels configured.", "cyber-magenta");
+            }
+        }
+
+        function resetContactForm() {
+            const form = document.getElementById('contact-form');
+            const successOverlay = document.getElementById('contact-success');
+            
+            form.reset();
+            successOverlay.classList.add('hidden');
+            successOverlay.classList.remove('flex');
+        }
+
+        // 10. EXPONENTIAL BACKOFF FOR GEMINI API CALLS
+        async function fetchWithRetry(url, options, maxRetries = 5) {
+            let delay = 1000; // start with 1 second delay
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (response.ok) {
+                        return await response.json();
+                    }
+                } catch (error) {
+                    // Suppress log output per mandate
+                }
+                await new Promise(resolve => setTimeout(resolve, delay));
+                delay *= 2; // Double the delay
+            }
+            throw new Error("Unable to establish neural connection with core. Retry limits breached.");
+        }
+
+        // 11. INTERACTIVE CYBORG AI ASSISTANT TERMINAL LOGIC
+        let isChatOpen = false;
+
+        function toggleAIChat() {
+            const chatWindow = document.getElementById('ai-chat-window');
+            isChatOpen = !isChatOpen;
+
+            if (isChatOpen) {
+                chatWindow.classList.remove('scale-0', 'opacity-0');
+                chatWindow.classList.add('scale-100', 'opacity-100');
+            } else {
+                chatWindow.classList.add('scale-0', 'opacity-0');
+                chatWindow.classList.remove('scale-100', 'opacity-100');
+            }
+        }
+
+        async function handleAISend(event) {
+            event.preventDefault();
+
+            const queryInput = document.getElementById('ai-user-query');
+            const query = queryInput.value.trim();
+            if (!query) return;
+
+            const messagesArea = document.getElementById('ai-messages');
+
+            // Render User input in Terminal window
+            const userMsgDiv = document.createElement('div');
+            userMsgDiv.className = "p-2 rounded bg-slate-800/40 border border-slate-700/30 text-slate-300 self-end ml-4";
+            userMsgDiv.innerHTML = `<span class="text-cyber-purple font-bold block mb-0.5">SUBJECT://</span> ${escapeHTML(query)}`;
+            messagesArea.appendChild(userMsgDiv);
+            queryInput.value = "";
+            messagesArea.scrollTop = messagesArea.scrollHeight;
+
+            // Render Loading status placeholder
+            const loadMsgDiv = document.createElement('div');
+            loadMsgDiv.className = "p-2 rounded bg-slate-900/40 border border-slate-800/50 text-slate-500 animate-pulse";
+            loadMsgDiv.id = "temp-ai-loading";
+            loadMsgDiv.innerHTML = `<span class="text-cyber-cyan font-bold block mb-0.5">NEURAL_X://</span> Querying memory arrays... <i class="fa-solid fa-spinner animate-spin ml-2"></i>`;
+            messagesArea.appendChild(loadMsgDiv);
+            messagesArea.scrollTop = messagesArea.scrollHeight;
+
+            try {
+                // System instructions to maintain cyborg AI core persona
+                const systemPrompt = "You are NEURAL-X, an advanced Cyborg AI Core assistant. Speak in a cold, sleek, highly intelligence-driven, and cyberpunk cyborg persona. Use high-impact technical terms, and assure the user that their neural interface is synchronized. Keep responses under 3 sentences.";
+                
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                const payload = {
+                    contents: [{ parts: [{ text: query }] }],
+                    systemInstruction: { parts: [{ text: systemPrompt }] }
+                };
+
+                const result = await fetchWithRetry(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                // Remove loading element
+                const loadEl = document.getElementById('temp-ai-loading');
+                if (loadEl) loadEl.remove();
+
+                const responseText = result.candidates?.[0]?.content?.parts?.[0]?.text || "Communication loop disrupted. Check core link parameters.";
+
+                // Render AI response
+                const aiMsgDiv = document.createElement('div');
+                aiMsgDiv.className = "p-2.5 rounded bg-cyber-cyan/5 border border-cyber-cyan/20 text-slate-300 mr-4";
+                aiMsgDiv.innerHTML = `<span class="text-cyber-cyan font-bold block mb-1">NEURAL_X://</span> ${escapeHTML(responseText)}`;
+                messagesArea.appendChild(aiMsgDiv);
+                messagesArea.scrollTop = messagesArea.scrollHeight;
+
+            } catch (error) {
+                // Fallback elegant terminal error handling
+                const loadEl = document.getElementById('temp-ai-loading');
+                if (loadEl) loadEl.remove();
+
+                const errMsgDiv = document.createElement('div');
+                errMsgDiv.className = "p-2.5 rounded bg-red-950/25 border border-red-900/40 text-red-300 mr-4 font-mono";
+                errMsgDiv.innerHTML = `<span class="text-red-400 font-bold block mb-1">ERROR://</span> Dynamic connection lost. Core memory offline. Check your console interface.`;
+                messagesArea.appendChild(errMsgDiv);
+                messagesArea.scrollTop = messagesArea.scrollHeight;
+            }
+        }
+
+        // Utility to secure against basic DOM Injection
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+            );
+        }
+
+        // 12. SMOOTH SCROLL REVEAL LOGIC (IntersectionObserver fallback)
+        document.addEventListener("DOMContentLoaded", () => {
+            const reveals = document.querySelectorAll(".reveal");
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            reveals.forEach(reveal => observer.observe(reveal));
+        });
+    </script>
+</body>
+</html>
